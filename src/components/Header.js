@@ -4,8 +4,8 @@ const Header = () => {
   return (
     <header>
       <section id="hero">
-        <h1>John Doe</h1>
-        <p>Full Stack Developer & UI/UX Designer</p>
+        <h1>Ashutosh Shriansh</h1>
+        <p>Full Stack Developer</p>
         <p>
           Passionate about creating beautiful, functional web experiences that make a difference.
           I love turning complex problems into simple, elegant solutions.

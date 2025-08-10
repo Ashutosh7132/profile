@@ -5,9 +5,9 @@ const About = () => {
     <section id="about">
       <h2>About Me</h2>
       <p>
-        I'm a passionate full-stack developer with over 5 years of experience in creating 
+        I'm a passionate full-stack developer with over 9+ years of experience in creating 
         digital experiences that combine beautiful design with robust functionality. 
-        I specialize in React, Node.js, and modern web technologies.
+        I specialize in React, Typescript, and modern web technologies.
       </p>
       <p>
         When I'm not coding, you can find me exploring new technologies, contributing to 

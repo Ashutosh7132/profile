@@ -76,7 +76,7 @@ export default function App() {
         'Implemented SFDS fraud prevention system reducing fraudulent transactions by 40%',
         'Mentored team of 8 developers and improved code quality standards'
       ],
-      technologies: ['Java 17', 'Spring Boot', 'Oracle', 'Azure', 'Microservices']
+      technologies: ['Java 21', 'Spring Boot 3x', 'Oracle', 'Azure', 'Microservices']
     },
     {
       company: 'IBM',
@@ -126,7 +126,7 @@ export default function App() {
     {
       title: 'Payment API (ALIPAY+)',
       description: 'Enterprise-grade merchant payment aggregator system processing thousands of transactions daily with real-time fraud detection and multi-currency support.',
-      technologies: ['Java 17', 'Spring Boot', 'Oracle', 'Redis', 'Kafka'],
+      technologies: ['Java 21', 'Spring Boot', 'Oracle', 'HazelCast', 'Kafka'],
       features: ['Real-time processing', 'Multi-currency support', 'Fraud detection', 'High availability'],
       impact: '10K+ daily transactions, 99.9% uptime'
     },
@@ -142,7 +142,7 @@ export default function App() {
       description: 'Advanced fraud detection and prevention system using machine learning algorithms and real-time transaction monitoring across multiple banking channels.',
       technologies: ['Java', 'Spring Boot', 'Outseer', 'Kafka', 'Azure ML'],
       features: ['ML-based detection', 'Real-time monitoring', 'Multi-channel support', 'Risk scoring'],
-      impact: '40% reduction in fraud, 99% accuracy rate'
+      impact: '90% reduction in fraud, 99% accuracy rate'
     },
     {
       title: 'Comet Enterprise Integration',
@@ -374,7 +374,7 @@ export default function App() {
                 </div>
                 <div className='p-6 rounded-2xl bg-gradient-to-br from-pink-500/20 to-red-500/20 border border-pink-500/30 backdrop-blur-sm'>
                   <FaBuilding className='text-3xl text-pink-400 mb-4' />
-                  <div className='text-2xl font-bold text-white mb-2'>4</div>
+                  <div className='text-2xl font-bold text-white mb-2'>7</div>
                   <div className='text-gray-300'>Companies</div>
                 </div>
                 <div className='p-6 rounded-2xl bg-gradient-to-br from-green-500/20 to-blue-500/20 border border-green-500/30 backdrop-blur-sm'>
@@ -726,7 +726,7 @@ export default function App() {
                 </a>
                 
                 <a 
-                  href='https://linkedin.com/in/ashutosh-shriansh' 
+                  href='https://www.linkedin.com/in/ashutosh-shriansh-ba1586264/' 
                   target='_blank' 
                   rel='noreferrer' 
                   className='flex items-center gap-4 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-all duration-300 group'
@@ -827,7 +827,7 @@ export default function App() {
                     <FaEnvelope /> Start a Conversation
                   </a>
                   <a 
-                    href='https://linkedin.com/in/ashutosh-shriansh' 
+                    href='https://www.linkedin.com/in/ashutosh-shriansh-ba1586264/' 
                     target='_blank' 
                     rel='noreferrer' 
                     className='inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 font-semibold text-lg transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-white/30'
@@ -861,7 +861,7 @@ export default function App() {
               <a href='https://github.com/Ashutosh7132' target='_blank' rel='noreferrer' className='text-gray-400 hover:text-indigo-400 transition-colors'>
                 <FaGithub className='text-xl' />
               </a>
-              <a href='https://linkedin.com/in/ashutosh-shriansh' target='_blank' rel='noreferrer' className='text-gray-400 hover:text-indigo-400 transition-colors'>
+              <a href='https://www.linkedin.com/in/ashutosh-shriansh-ba1586264/' target='_blank' rel='noreferrer' className='text-gray-400 hover:text-indigo-400 transition-colors'>
                 <FaLinkedin className='text-xl' />
               </a>
             </div>

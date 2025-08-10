@@ -80,10 +80,10 @@ const Contact = () => {
           <a href="mailto:john@example.com" className="btn" style={{ padding: '10px 20px' }}>
             📧 Email
           </a>
-          <a href="https://linkedin.com/in/johndoe" target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '10px 20px' }}>
+          <a href="https://www.linkedin.com/in/ashutosh-shriansh-ba1586264/" target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '10px 20px' }}>
             💼 LinkedIn
           </a>
-          <a href="https://github.com/johndoe" target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '10px 20px' }}>
+          <a href="https://github.com/Ashutosh7132" target="_blank" rel="noopener noreferrer" className="btn" style={{ padding: '10px 20px' }}>
             🐙 GitHub
           </a>
         </div>
