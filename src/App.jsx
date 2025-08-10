@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa'
 import { SiSpring, SiKubernetes, SiMicrosoftazure, SiPostgresql, SiOracle, SiApachekafka } from 'react-icons/si'
 
-const resume = '/assets/Ashutosh_Shriansh_Resume.pdf'
+const resume = '/profile/assets/Ashutosh_Shriansh_Resume.pdf'
 
 // Animation variants
 const fadeInUp = {
@@ -301,7 +301,7 @@ export default function App() {
                 <div className='relative'>
                   <div className='absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full blur-2xl opacity-20 scale-110'></div>
                   <img 
-                    src='/assets/Ashutosh Shriansh.png' 
+                    src='/profile/assets/Ashutosh Shriansh.png' 
                     alt='Ashutosh Shriansh' 
                     className='relative w-80 h-80 lg:w-96 lg:h-96 rounded-full border-4 border-gradient-to-r from-indigo-400 to-purple-400 shadow-2xl object-cover'
                   />
