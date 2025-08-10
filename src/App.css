@@ -271,8 +271,9 @@ p {
     grid-template-columns: 1fr;
   }
   
-  .galaxy-1,
+  /* Remove the display: none for galaxy elements */
+  /* .galaxy-1,
   .galaxy-2 {
     display: none;
-  }
+  } */
 }

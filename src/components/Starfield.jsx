@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react'
+import React, { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -6,8 +6,12 @@ import * as THREE from 'three'
 function Stars({ theme }) {
   const ref = useRef()
   const particles = useMemo(() => {
-    const temp = new Float32Array(8000 * 3)
-    for(let i = 0; i < 8000; i++) {
+    // Reduce particle count for mobile devices
+    const isMobile = window.innerWidth < 768
+    const count = isMobile ? 3000 : 8000
+    
+    const temp = new Float32Array(count * 3)
+    for(let i = 0; i < count; i++) {
       const r = 200 + Math.random() * 1200
       const theta = Math.random() * Math.PI * 2
       const phi = Math.acos(2 * Math.random() - 1)
@@ -27,9 +31,17 @@ function Stars({ theme }) {
       ref.current.rotation.y = t
       ref.current.rotation.x = Math.sin(t * 0.5) * 0.1
     }
-    const scroll = window.scrollY / (document.body.scrollHeight - window.innerHeight || 1)
-    camera.position.z = 100 + scroll * 150
-    camera.position.y = -scroll * 50
+    
+    // Smoother scroll-based camera movement
+    try {
+      const scroll = window.scrollY / (document.body.scrollHeight - window.innerHeight || 1)
+      camera.position.z = 100 + scroll * 150
+      camera.position.y = -scroll * 50
+    } catch (e) {
+      // Fallback if scroll calculation fails
+      camera.position.z = 100
+      camera.position.y = 0
+    }
   })
 
   return (
@@ -56,6 +68,10 @@ function Nebula({ theme }) {
   const ref = useRef()
   const cloudRef = useRef()
   
+  // Reduce complexity for mobile
+  const isMobile = window.innerWidth < 768
+  const sphereDetail = isMobile ? 16 : 32
+  
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime() * 0.02
     if (ref.current) {
@@ -76,7 +92,7 @@ function Nebula({ theme }) {
     <group>
       {/* Main nebula cloud */}
       <mesh ref={ref} position={[0, 0, -400]} scale={[2, 1.5, 2]}>
-        <sphereGeometry args={[300, 32, 32]} />
+        <sphereGeometry args={[300, sphereDetail, sphereDetail]} />
         <meshBasicMaterial 
           color={nebulaColor}
           transparent 
@@ -87,7 +103,7 @@ function Nebula({ theme }) {
       
       {/* Secondary cloud layer */}
       <mesh ref={cloudRef} position={[200, 100, -600]} scale={[1.5, 2, 1.5]}>
-        <sphereGeometry args={[200, 32, 32]} />
+        <sphereGeometry args={[200, sphereDetail, sphereDetail]} />
         <meshBasicMaterial 
           color={new THREE.Color(0x7c3aed).multiplyScalar(0.2)}
           transparent 
@@ -103,8 +119,12 @@ function Nebula({ theme }) {
 function FloatingParticles({ theme }) {
   const ref = useRef()
   const particles = useMemo(() => {
-    const temp = new Float32Array(2000 * 3)
-    for(let i = 0; i < 2000; i++) {
+    // Reduce particle count for mobile devices
+    const isMobile = window.innerWidth < 768
+    const count = isMobile ? 800 : 2000
+    
+    const temp = new Float32Array(count * 3)
+    for(let i = 0; i < count; i++) {
       temp[i * 3] = (Math.random() - 0.5) * 2000
       temp[i * 3 + 1] = (Math.random() - 0.5) * 1000
       temp[i * 3 + 2] = (Math.random() - 0.5) * 2000
@@ -137,27 +157,68 @@ function FloatingParticles({ theme }) {
   )
 }
 
+// Performance optimization wrapper
+function PerformanceMonitor({ children }) {
+  const [isLowPerformance, setIsLowPerformance] = useState(false)
+  
+  useEffect(() => {
+    // Check if device is mobile
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    
+    // Check if browser is Chrome
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+    
+    // Set performance mode based on device and browser
+    setIsLowPerformance(isMobile || (isChrome && window.innerWidth < 1024))
+    
+    // Add resize listener to adjust performance settings
+    const handleResize = () => {
+      setIsLowPerformance(window.innerWidth < 768 || (isChrome && window.innerWidth < 1024))
+    }
+    
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+  
+  return children(isLowPerformance)
+}
+
 export default function Starfield({ theme = 'dark' }) {
   return (
-    <Canvas camera={{ position: [0, 0, 100], fov: 75 }}>
-      <ambientLight intensity={0.1} />
-      <pointLight position={[100, 100, 100]} intensity={0.3} color={"#4f46e5"} />
-      <pointLight position={[-100, -100, -100]} intensity={0.2} color={"#7c3aed"} />
-      
-      <Stars theme={theme} />
-      <Nebula theme={theme} />
-      <FloatingParticles theme={theme} />
-      
-      {/* Distant galaxy backdrop */}
-      <mesh rotation={[0, 0, 0]} position={[0, -100, -800]}>
-        <sphereGeometry args={[600, 32, 32]} />
-        <meshBasicMaterial 
-          color={theme === 'dark' ? '#0f0f23' : '#1e293b'} 
-          side={THREE.BackSide} 
-          transparent 
-          opacity={0.7} 
-        />
-      </mesh>
-    </Canvas>
+    <PerformanceMonitor>
+      {(isLowPerformance) => (
+        <Canvas 
+          camera={{ position: [0, 0, 100], fov: isLowPerformance ? 60 : 75 }}
+          gl={{ 
+            antialias: !isLowPerformance,
+            powerPreference: 'high-performance',
+            alpha: true,
+            depth: true,
+            stencil: false,
+            precision: isLowPerformance ? 'lowp' : 'highp'
+          }}
+          style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+        >
+          <ambientLight intensity={0.1} />
+          <pointLight position={[100, 100, 100]} intensity={0.3} color={"#4f46e5"} />
+          <pointLight position={[-100, -100, -100]} intensity={0.2} color={"#7c3aed"} />
+          
+          <Stars theme={theme} />
+          <Nebula theme={theme} />
+          <FloatingParticles theme={theme} />
+          
+          {/* Distant galaxy backdrop */}
+          <mesh rotation={[0, 0, 0]} position={[0, -100, -800]}>
+            <sphereGeometry args={[600, isLowPerformance ? 16 : 32, isLowPerformance ? 16 : 32]} />
+            <meshBasicMaterial 
+              color={theme === 'dark' ? '#0f0f23' : '#1e293b'} 
+              side={THREE.BackSide} 
+              transparent 
+              opacity={0.7} 
+            />
+          </mesh>
+        </Canvas>
+      )}
+    </PerformanceMonitor>
   )
 }
